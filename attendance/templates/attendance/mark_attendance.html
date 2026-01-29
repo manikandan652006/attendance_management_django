@@ -1,0 +1,45 @@
+{% extends 'attendance/base.html' %}
+{% block content %}
+
+<div class="max-w-xl mx-auto bg-white shadow-xl rounded-2xl p-8">
+
+    <h2 class="text-2xl font-bold text-gray-800 mb-2">
+        Mark Attendance
+    </h2>
+
+    <p class="text-sm text-gray-500 mb-6">
+        Date: <strong class="text-gray-700">{{ today }}</strong>
+    </p>
+
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+
+        {% for s in students %}
+            <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition cursor-pointer">
+                <input
+                    type="checkbox"
+                    name="{{ s.id }}"
+                    checked
+                    class="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500"
+                >
+                <span class="text-gray-800 font-medium">
+                    {{ s.name }}
+                </span>
+            </label>
+        {% empty %}
+            <p class="text-center text-gray-500">
+                No students available.
+            </p>
+        {% endfor %}
+
+        <button
+            type="submit"
+            class="w-full mt-6 bg-indigo-600 text-white py-3 rounded-xl font-semibold
+                   hover:bg-indigo-700 transition">
+            Submit Attendance
+        </button>
+    </form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'attendance/base.html' %}
+{% block content %}
+
+<div class="max-w-2xl mx-auto bg-white shadow-xl rounded-2xl p-8">
+
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">
+        Student Records
+    </h2>
+
+    <!-- Add Student Form -->
+    <form method="post" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        {% csrf_token %}
+
+        <input
+            type="text"
+            name="name"
+            placeholder="Student name"
+            required
+            class="col-span-1 md:col-span-1 px-4 py-2 border rounded-lg
+                   focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        >
+
+        <input
+            type="text"
+            name="roll"
+            placeholder="Roll no"
+            required
+            class="col-span-1 md:col-span-1 px-4 py-2 border rounded-lg
+                   focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        >
+
+        <button
+            type="submit"
+            class="col-span-1 bg-indigo-600 text-white rounded-lg font-semibold
+                   hover:bg-indigo-700 transition"
+        >
+            Add
+        </button>
+    </form>
+
+    <!-- Student List -->
+    <div class="divide-y">
+        {% for s in students %}
+            <div class="flex justify-between items-center py-3">
+                <span class="font-medium text-gray-800">
+                    {{ s.name }}
+                </span>
+                <span class="text-sm text-gray-500">
+                    Roll No: {{ s.roll_no }}
+                </span>
+            </div>
+        {% empty %}
+            <p class="text-center text-gray-500 py-4">
+                No students added yet
+            </p>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}
